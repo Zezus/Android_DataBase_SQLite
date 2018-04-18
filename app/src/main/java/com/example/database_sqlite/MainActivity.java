@@ -56,12 +56,41 @@ public class MainActivity extends AppCompatActivity {
 
                     database.insert(DatabaseHelper.PEOPLE_TABLE, null, contentValues);
 
+                    /*database.update(DatabaseHelper.PEOPLE_TABLE, contentValues,
+                            DatabaseHelper.ID_COLUMN + " LIKE ?",
+                            new String[] {String.valueOf(1)});
+
+                    database.delete(DatabaseHelper.PEOPLE_TABLE,
+                            DatabaseHelper.ID_COLUMN + " LIKE ?",
+                            new String[] {String.valueOf(1)});
+
+                    Cursor cursor = database.query(
+                            DatabaseHelper.PEOPLE_TABLE,
+                            new String[]{DatabaseHelper.FULL_NAME_COLUMN, DatabaseHelper.EMAIL_COLUMN, DatabaseHelper.AGE_COLUMN},
+                            " LIKE ?",
+                            new String[]{String.valueOf(1)},
+                            null,
+                            null,
+                            null //DataBaseHelper.AGE_COLUMN + " ASC"
+                    );
+
+                    cursor.moveToFirst();
+                    while (cursor.moveToNext()) {
+                        int ageColumnIndex = cursor.getColumnIndex(DatabaseHelper.AGE_COLUMN);
+                        int age = cursor.getInt(ageColumnIndex);
+                    }*/
+
                     database.setTransactionSuccessful();
+                    //cursor.close();
                 } catch (SQLException ex) {
                     Log.d(MainActivity.class.getSimpleName(), ex.getMessage());
                 } finally {
                     database.endTransaction();
                 }
+
+                database.close();
+                databaseHelper.close();
+
                 return "";
             }
         });
